@@ -1,6 +1,24 @@
 import React, { useContext } from "react";
+
 import { addTodo } from "../actions";
 import StoreContext from "../store/StoreContext";
+import fetcher from '../libs/fetch';
+
+const asyncAddTodo = async (text, dispatch) => {
+  const json = await fetcher('http://localhost:3001/todo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ 
+      id: 11,
+      text,
+      completed: false,
+     })
+  });
+
+  dispatch(addTodo(json));
+};
 
 const AddTodo = () => {
   let input;
@@ -14,7 +32,7 @@ const AddTodo = () => {
           if (!input.value.trim()) {
             return;
           }
-          dispatch(addTodo(input.value));
+          asyncAddTodo(input.value.trim(), dispatch);
           input.value = "";
         }}
       >
