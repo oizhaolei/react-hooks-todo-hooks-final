@@ -1,5 +1,9 @@
 const todos = (state = [], action) => {
   switch (action.type) {
+    case "RESET_TODOS":
+      return [
+        ...action.data,
+      ];
     case "ADD_TODO":
       return [
         ...state,

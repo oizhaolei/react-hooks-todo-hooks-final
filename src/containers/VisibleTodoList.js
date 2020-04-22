@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
-import { toggleTodo } from "../actions";
+import React, { useContext, Suspense } from "react";
+import useSWR from 'swr'
+
+import { toggleTodo, resetTodos } from "../actions";
 import TodoList from "../components/TodoList";
 import { VisibilityFilters } from "../actions";
 import StoreContext from "../store/StoreContext";
@@ -18,11 +20,19 @@ const getVisibleTodos = (todos, filter) => {
 };
 
 export default function VisibleTodoList() {
-  const [{ todos, visibilityFilter }, dispatch] = useContext(StoreContext);
+  const [{ visibilityFilter }, dispatch] = useContext(StoreContext);
+  const { todos } = useSWR('/api/data', fetcher, {
+    suspense: true,
+    onSuccess: (data, key, config) => {
+      dispatch(resetTodos(data))
+    },
+  })
   return (
-    <TodoList
-      todos={getVisibleTodos(todos, visibilityFilter)}
-      toggleTodo={id => dispatch(toggleTodo(id))}
-    />
+    <Suspense fallback={<div>loading...</div>}>
+      <TodoList
+        todos={getVisibleTodos(todos, visibilityFilter)}
+        toggleTodo={id => dispatch(toggleTodo(id))}
+      />
+    </Suspense>
   );
 }

@@ -1,4 +1,9 @@
 let nextTodoId = 0;
+export const resetTodos = data => ({
+  type: "RESET_TODOS",
+  data,
+});
+
 export const addTodo = text => ({
   type: "ADD_TODO",
   id: nextTodoId++,
