@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
+    "json-server": "^0.16.1",
     "react": "16.7.0-alpha.2",
     "react-dom": "16.7.0-alpha.2",
     "react-scripts": "2.1.1",

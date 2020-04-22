@@ -1,12 +1,15 @@
-let nextTodoId = 0;
-export const resetTodos = data => ({
-  type: "RESET_TODOS",
-  data,
-});
+let nextTodoId = 1;
+export const resetTodos = data => {
+  nextTodoId = data.length;
+  return {
+    type: "RESET_TODOS",
+    data,
+  };
+};
 
 export const addTodo = text => ({
   type: "ADD_TODO",
-  id: nextTodoId++,
+  id: ++nextTodoId,
   text
 });
 

@@ -4,6 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## `npx json-server --port 3001 --delay 2000 --watch db.json`
+
+Start the mock data server
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
