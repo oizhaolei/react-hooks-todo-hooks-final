@@ -1,4 +1,4 @@
-import React, { useContext, Suspense } from "react";
+import React, { useState, useContext, Suspense } from "react";
 import useSWR from 'swr'
 
 import { changeTodo, resetTodos } from "../actions";
@@ -20,19 +20,26 @@ const getVisibleTodos = (todos, filter) => {
   }
 };
 
-const asyncchangeTodo = async (id, data, dispatch) => {
-  const json = await fetcher(`http://localhost:3001/todo/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
-
-  dispatch(changeTodo(id, json));
+const asyncChangeTodo = async (id, data, dispatch, setLoading) => {
+  try {
+    setLoading(true);
+    const json = await fetcher(`http://localhost:3001/todo/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    
+    dispatch(changeTodo(id, json));
+  } finally {
+    setLoading(false);
+  }
 };
 
 const Repos = () => {
+  const [loading, setLoading] = useState(false);
+
   const [{ todos, visibilityFilter }, dispatch] = useContext(StoreContext);
   useSWR('http://localhost:3001/todo', fetcher, {
     suspense: true,
@@ -42,8 +49,9 @@ const Repos = () => {
   })
   return (
     <TodoList
+      loading={loading}
       todos={getVisibleTodos(todos, visibilityFilter)}
-      changeTodo={(id, data) => asyncchangeTodo(id, data, dispatch)}
+      changeTodo={(id, data) => asyncChangeTodo(id, data, dispatch, setLoading)}
     />
   );
 }

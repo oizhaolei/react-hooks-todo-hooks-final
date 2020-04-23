@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { Button } from 'antd';
+
 const Link = ({ active, children, onClick }) => (
-  <button
+  <Button
     onClick={onClick}
     disabled={active}
     style={{
@@ -10,7 +12,7 @@ const Link = ({ active, children, onClick }) => (
     }}
   >
     {children}
-  </button>
+  </Button>
 );
 
 Link.propTypes = {
