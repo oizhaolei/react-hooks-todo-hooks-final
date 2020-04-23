@@ -87,7 +87,7 @@ describe("todos reducer", () => {
     ]);
   });
 
-  it("should handle TOGGLE_TODO", () => {
+  it("should handle CHANGE_TODO", () => {
     expect(
       todos(
         [
@@ -103,7 +103,7 @@ describe("todos reducer", () => {
           }
         ],
         {
-          type: "TOGGLE_TODO",
+          type: "CHANGE_TODO",
           id: 1
         }
       )

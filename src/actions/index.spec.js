@@ -16,10 +16,14 @@ describe("todo actions", () => {
     });
   });
 
-  it("toggleTodo should create TOGGLE_TODO action", () => {
-    expect(actions.toggleTodo(1)).toEqual({
-      type: "TOGGLE_TODO",
-      id: 1
+  it("changeTodo should create CHANGE_TODO action", () => {
+    const data = {
+      text: "Use Redux",
+    };
+    expect(actions.changeTodo(1, data)).toEqual({
+      type: "CHANGE_TODO",
+      id: 1,
+      data,
     });
   });
 });

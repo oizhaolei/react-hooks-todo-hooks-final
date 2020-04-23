@@ -13,10 +13,10 @@ const todos = (state = [], action) => {
           completed: false
         }
       ];
-    case "TOGGLE_TODO":
+    case "CHANGE_TODO":
       return state.map(
         todo =>
-          todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
+          todo.id === action.id ? { ...action.data } : todo
       );
     default:
       return state;

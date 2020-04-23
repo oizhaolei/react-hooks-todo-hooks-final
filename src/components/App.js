@@ -47,9 +47,10 @@ const App = () => (
     <SplitPane
       split="vertical"
       minSize={250}
-      defaultSize={parseInt(localStorage.getItem('react-split-pos2') || 350, 10)}
+      primary="second"
+      defaultSize={parseInt(localStorage.getItem('react-split-pos2') || 0, 10) || '75%'}
       onChange={size => localStorage.setItem('react-split-pos2', size)}
-        paneStyle={{
+      paneStyle={{
         overflowY: 'auto',
       }}
     >

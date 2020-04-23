@@ -1898,7 +1898,7 @@ diff --git a/src/containers/VisibleTodoList.js b/src/containers/VisibleTodoList.
 index 5db4ef2..a7b341c 100644
 --- a/src/containers/VisibleTodoList.js
 +++ b/src/containers/VisibleTodoList.js
-@@ -5,6 +5,7 @@ import { toggleTodo, resetTodos } from "../actions";
+@@ -5,6 +5,7 @@ import { changeTodo, resetTodos } from "../actions";
  import TodoList from "../components/TodoList";
  import { VisibilityFilters } from "../actions";
  import StoreContext from "../store/StoreContext";
@@ -1925,12 +1925,12 @@ index 5db4ef2..a7b341c 100644
 -    <Suspense fallback={<div>loading...</div>}>
 -      <TodoList
 -        todos={getVisibleTodos(todos, visibilityFilter)}
--        toggleTodo={id => dispatch(toggleTodo(id))}
+-        changeTodo={id => dispatch(changeTodo(id))}
 -      />
 -    </Suspense>
 +    <TodoList
 +      todos={getVisibleTodos(todos, visibilityFilter)}
-+      toggleTodo={id => dispatch(toggleTodo(id))}
++      changeTodo={id => dispatch(changeTodo(id))}
 +    />
    );
  }
