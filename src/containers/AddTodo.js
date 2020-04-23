@@ -41,7 +41,7 @@ const AddTodo = () => {
         <input ref={node => (input = node)} />
         <Button
           loading={loading}
-          type="submit"
+          type="primary"
           onClick={e => {
             e.preventDefault();
             if (!input.value.trim()) {
