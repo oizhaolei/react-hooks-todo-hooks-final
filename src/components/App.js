@@ -1,32 +1,13 @@
 import React from "react";
 import SplitPane from 'react-split-pane';
-import { parseDiff, Diff, Hunk } from 'react-diff-view';
-import './react-diff-view.css';
-import './react-split.css';
+import '../react-diff-view.css';
+import '../react-split.css';
 
 import Footer from "./Footer";
+import DiffViewer from "../containers/DiffViewer";
+
 import AddTodo from "../containers/AddTodo";
 import VisibleTodoList from "../containers/VisibleTodoList";
-import diff from "./data.js";
-
-const DiffViewer = ({ diffText }) => {
-  const files = parseDiff(diffText);
-
-  const renderFile = ({ oldRevision, newRevision, type, hunks, oldPath, newPath }) => (
-    <div key={oldRevision + '-' + newRevision} >
-      <div>{oldPath} == {newPath}</div>
-      <Diff viewType="split" diffType={type} hunks={hunks}>
-        {hunks => hunks.map(hunk => <Hunk key={hunk.content} hunk={hunk} />)}
-      </Diff>
-    </div>
-  );
-
-  return (
-    <div>
-      {files.map(renderFile)}
-    </div>
-  );
-};
 
 const App = () => (
   <SplitPane
@@ -55,7 +36,7 @@ const App = () => (
       }}
     >
       <div>task list</div>
-      <DiffViewer diffText={diff} />
+      <DiffViewer />
     </SplitPane>
   </SplitPane>
 );

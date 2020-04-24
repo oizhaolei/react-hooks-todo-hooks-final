@@ -1,5 +1,6 @@
 import React, { useState, useContext, Suspense } from "react";
 import useSWR from 'swr'
+import { Spin } from 'antd';
 
 import { changeTodo, resetTodos } from "../actions";
 import TodoList from "../components/TodoList";
@@ -30,7 +31,7 @@ const asyncChangeTodo = async (id, data, dispatch, setLoading) => {
       },
       body: JSON.stringify(data)
     });
-    
+
     dispatch(changeTodo(id, json));
   } finally {
     setLoading(false);
@@ -46,7 +47,8 @@ const Repos = () => {
     onSuccess: (data, key, config) => {
       dispatch(resetTodos(data))
     },
-  })
+  });
+
   return (
     <TodoList
       loading={loading}
@@ -56,12 +58,8 @@ const Repos = () => {
   );
 }
 
-export default () => {
-  return (
-    <>
-      <Suspense fallback={<div>loading...</div>}>
-        <Repos></Repos>
-      </Suspense>
-    </>
-  )
-}
+export default () => (
+  <Suspense fallback={<Spin />}>
+    <Repos />
+  </Suspense>
+);
